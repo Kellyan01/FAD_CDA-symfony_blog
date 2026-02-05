@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    {# Vérifier si le tableau articles est défini #}
+    {% if articles is defined %}
+            <h1>Hello {{ controller_name }}! ✅</h1>
+            {% for article in articles %}
+                <article>
+                    <h2><a href ="{{ path('app_article_detail', {id:article.id}) }}" >{{ article.titleArticle }}</a></h2>
+                    <p>Date de Publication : {{ article.publishedAt | date('d/m/Y') }} </p>
+                    {# {% if article.category %} 
+                            <p>Categories : {% for category in article.category %}
+                                {{ category.nameCategory }}
+                                {% endfor %}
+                            </p> 
+                        {% else %}
+                            <p>Cet Article n'appartient à aucune catégorie</p>
+                        {% endif %} #}
+                </article>
+            {% endfor %}
+    {% endif %}
+
+    {# Vérifier si un article est défini #}
+    {% if article is defined %}
+        <h1>{{ article.titleArticle }}</h1>
+        <img src="{{ article.imageArticle}}" alt="thumbnail de l'article">
+        <p>{{ article.contentArticle }}</p>
+        <p>Auteur : {{ article.writeBy.nameUser}} {{ article.writeBy.firstnameUser}}, Date : {{ article.createdAt | date('d/m/Y')}} {% if article.updateAt %}, Mise à jour : {{ article.updateAt | date('d/m/Y') }} {% endif %}</p>
+    {% endif %}
+</div>
+{% endblock %}
